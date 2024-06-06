@@ -44,7 +44,7 @@ MIT / BSD
 
 ---
 * [https://pykickstart.readthedocs.io/en/latest/kickstart-docs.html](https://pykickstart.readthedocs.io/en/latest/kickstart-docs.html)
-* [https://anaconda-installer.readthedocs.io/en/latest/boot-options.html]([https://anaconda-installer.readthedocs.io/en/latest/boot-options.html)
+* [https://anaconda-installer.readthedocs.io/en/latest/boot-options.html](https://anaconda-installer.readthedocs.io/en/latest/boot-options.html)
 * [https://www.debian.org/releases/stable/amd64/apbs04.ru.html](https://www.debian.org/releases/stable/amd64/apbs04.ru.html)
 * [https://unix.stackexchange.com/questions/640232/verified-good-mkisofs-for-centos-8](https://unix.stackexchange.com/questions/640232/verified-good-mkisofs-for-centos-8)
 * [https://github.com/dafydd2277/systemAdmin/tree/main/kickstart/centos8](https://github.com/dafydd2277/systemAdmin/tree/main/kickstart/centos8)
