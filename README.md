@@ -9,12 +9,12 @@ Silent installation RPM (Oracle Linux 8) and DEB (Debian 12) OS.
 
 For Deb:
 ```
-sudo apt -y install rsync sysutils sysutils-tools isomd5sum
+sudo apt -y install rsync sysutils sysutils-tools isomd5sum mkisofs
 ```
 
 For RPM:
 ```
-sudo dnf -y install rsync syslinux isomd5sum
+sudo dnf -y install rsync syslinux isomd5sum mkisofs
 ```
 
 For scripts to work correctly, the user must have mount (or sudo) execution rights.
