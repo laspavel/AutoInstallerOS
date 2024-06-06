@@ -14,7 +14,7 @@ sudo apt -y install sysutils sysutils-tools isomd5sum
 
 For RPM:
 ```
-sudo dnf -y install isohybrid syslinux
+sudo dnf -y install syslinux isomd5sum
 ```
 
 For scripts to work correctly, the user must have mount (or sudo) execution rights.
