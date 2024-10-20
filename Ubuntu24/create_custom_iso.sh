@@ -27,14 +27,12 @@ rsync -av $ISO_MOUNT_DIR/. $ISO_EXTRACT_DIR/
 umount $ISO_MOUNT_DIR
 
 # Копирование файла Kickstart в корень нового ISO
-cp "ks.cfg" $ISO_EXTRACT_DIR/
+cp "preseed.cfg" $ISO_EXTRACT_DIR/
 
 # Редактирование конфигурации загрузчика
-ISOLINUX_CFG="$ISO_EXTRACT_DIR/isolinux/isolinux.cfg"
-GRUB_CFG="$ISO_EXTRACT_DIR/EFI/BOOT/grub.cfg"
+GRUB_CFG="$ISO_EXTRACT_DIR/boot/grub/grub.cfg"
 
 # Копирование новой конфигурации загрузчика
-cp -f "isolinux.cfg" $ISOLINUX_CFG
 cp -f "grub.cfg" $GRUB_CFG
 
 find $ISO_EXTRACT_DIR -name TRANS.TBL -exec rm -f '{}' \;
@@ -42,17 +40,16 @@ find $ISO_EXTRACT_DIR -name TRANS.TBL -exec rm -f '{}' \;
 # Создание нового ISO-образа с опцией -joliet-long
 mkisofs \
   -o $NEW_ISO \
-  -b isolinux/isolinux.bin \
+  -b boot/grub/i386-pc/eltorito.img \
   -J -R -l -v -T \
-  -c isolinux/boot.cat \
   -no-emul-boot \
   -boot-load-size 4 \
   -boot-info-table \
   -eltorito-alt-boot \
-  -e images/efiboot.img \
+  -e EFI/boot/bootx64.efi \
   -no-emul-boot \
-  -V "RPMX-KS1" \
-  -A "RPMX-KS1" \
+  -V "U24-PR1" \
+  -A "U24-PR1" \
   -joliet-long \
   $ISO_EXTRACT_DIR
 
