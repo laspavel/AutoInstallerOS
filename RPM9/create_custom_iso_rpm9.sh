@@ -51,8 +51,8 @@ mkisofs \
   -eltorito-alt-boot \
   -e images/efiboot.img \
   -no-emul-boot \
-  -V "RPMX-KS1" \
-  -A "RPMX-KS1" \
+  -V "RPM9-KS1" \
+  -A "RPM9-KS1" \
   -joliet-long \
   $ISO_EXTRACT_DIR
 

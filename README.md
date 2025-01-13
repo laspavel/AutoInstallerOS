@@ -1,6 +1,6 @@
 # AutoInstallerOS
 
-Silent installation RPM (Oracle Linux 8) and DEB (Debian 12) OS.
+Silent installation RPM (Oracle Linux 8-9) and DEB (Debian 11-12) OS.
 
 ## Installation
 
