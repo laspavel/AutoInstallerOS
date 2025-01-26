@@ -9,6 +9,7 @@ fi
 # Аргументы командной строки
 ORIG_ISO=$1
 NEW_ISO=$2
+today=$(date +"%Y-%m-%d")
 
 # Создание рабочего каталога
 mkdir -p tmp
@@ -51,8 +52,8 @@ mkisofs \
   -eltorito-alt-boot \
   -e boot/grub/efi.img \
   -no-emul-boot \
-  -V "DEB11-PR1" \
-  -A "DEB11-PR1" \
+  -V "DEB11-PR1-$today" \
+  -A "DEB11-PR1-$today" \
   -joliet-long \
   $ISO_EXTRACT_DIR
 

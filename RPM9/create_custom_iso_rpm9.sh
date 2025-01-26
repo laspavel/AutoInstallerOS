@@ -9,6 +9,7 @@ fi
 # Аргументы командной строки
 ORIG_ISO=$1
 NEW_ISO=$2
+today=$(date +"%Y-%m-%d")
 
 # Создание рабочего каталога
 mkdir -p tmp
@@ -51,8 +52,8 @@ mkisofs \
   -eltorito-alt-boot \
   -e images/efiboot.img \
   -no-emul-boot \
-  -V "RPM9-KS1" \
-  -A "RPM9-KS1" \
+  -V "RPM9-KS1-$today" \
+  -A "RPM9-KS1-$today" \
   -joliet-long \
   $ISO_EXTRACT_DIR
 

@@ -1,6 +1,6 @@
 # AutoInstallerOS
 
-Silent installation RPM (Oracle Linux 8-9) and DEB (Debian 11-12) OS.
+Silent installation RPM (Oracle Linux 8-9), (Debian 11-12) and Ubuntu 24 Server OS.
 
 ## Installation
 
@@ -9,12 +9,12 @@ Silent installation RPM (Oracle Linux 8-9) and DEB (Debian 11-12) OS.
 
 For Deb:
 ```
-sudo apt -y install rsync sysutils sysutils-tools isomd5sum mkisofs
+sudo apt -y install rsync sysutils sysutils-tools isomd5sum mkisofs xorriso
 ```
 
 For RPM:
 ```
-sudo dnf -y install rsync syslinux isomd5sum mkisofs
+sudo dnf -y install rsync syslinux isomd5sum mkisofs xorriso
 ```
 
 For scripts to work correctly, the user must have mount (or sudo) execution rights.
@@ -50,7 +50,10 @@ MIT / BSD
 * [https://github.com/dafydd2277/systemAdmin/tree/main/kickstart/centos8](https://github.com/dafydd2277/systemAdmin/tree/main/kickstart/centos8)
 * [https://access.redhat.com/discussions/6161602](https://access.redhat.com/discussions/6161602)
 * [https://github.com/iwDevOps/RockyLinux8-Kickstart-iso](https://github.com/iwDevOps/RockyLinux8-Kickstart-iso)
-
+* [https://canonical-subiquity.readthedocs-hosted.com/en/latest/reference/autoinstall-reference.html#storage](https://canonical-subiquity.readthedocs-hosted.com/en/latest/reference/autoinstall-reference.html#storage)
+* [https://curtin.readthedocs.io/en/latest/topics/storage.html](https://curtin.readthedocs.io/en/latest/topics/storage.html)
+* [https://curtin.readthedocs.io/en/latest/topics/config.html#grub](https://curtin.readthedocs.io/en/latest/topics/config.html#grub)
+* [https://askubuntu.com/questions/1487504/ubuntu-22-04-autoinstall-works-on-uefi-but-not-mbr-in-virtualbox](https://askubuntu.com/questions/1487504/ubuntu-22-04-autoinstall-works-on-uefi-but-not-mbr-in-virtualbox)
 
 
 

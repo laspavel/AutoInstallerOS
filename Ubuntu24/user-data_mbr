@@ -1,0 +1,60 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: ubuntu-server
+    username: admin
+    # crypt password (mkpasswd -m sha512crypt or openssl passwd -6 sun_password)
+    password: "$6$CedBC5FogKlSBKRZ$QIk11vkJCsFVUDgCtV58CvaUI9ScIJT4Bfgs4f2hXxsYKV4t5j37bz/kDeXbPY4MZmkGCMWKC9V/Heqhzl3gU0"
+  storage:
+    swap:
+      size: 0
+    config:
+    - id: disk0
+      type: disk
+      ptable: msdos
+      path: /dev/sda
+      name: main_disk
+      wipe: superblock
+      grub_device: true
+    - id: disk0-part1
+      type: partition
+      number: 1
+      size: -1
+      device: disk0
+      flag: boot
+      wipe: superblock
+    - id: disk0-part1-format-root
+      type: format
+      fstype: ext4
+      volume: disk0-part1
+    - id: disk0-part1-mount-root
+      type: mount
+      path: /
+      device: disk0-part1-format-root
+  packages:
+    - openssh-server
+    - mc
+    - nano
+    - net-tools
+    - git
+    - tig
+    - htop
+    - sysstat
+    - ncdu
+  ssh:
+    install-server: true
+  late-commands:
+  - curtin in-target -- /usr/bin/sed -i '/^#PermitRootLogin/ s/^#//; /PermitRootLogin/! s/^$/PermitRootLogin yes/' /etc/ssh/sshd_config
+  - curtin in-target -- /bin/bash -c "echo -e '123123Q\n123123Q' | passwd root"
+  - curtin in-target -- /usr/bin/systemctl enable ssh
+  locale: en_US.UTF-8
+  timezone: "Europe/Kyiv"
+  keyboard:
+    layout: us
+  network:
+    network:
+      version: 2
+      ethernets:
+        enp0s3:
+          dhcp4: true
