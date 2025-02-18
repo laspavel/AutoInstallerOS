@@ -41,25 +41,30 @@ cp -f "grub.cfg" $GRUB_CFG
 find $ISO_EXTRACT_DIR -name TRANS.TBL -exec rm -f '{}' \;
 
 # Создание нового ISO-образа с опцией -joliet-long
-mkisofs \
-  -o $NEW_ISO \
-  -b isolinux/isolinux.bin \
-  -J -R -l -v -T \
-  -c isolinux/boot.cat \
-  -no-emul-boot \
-  -boot-load-size 4 \
-  -boot-info-table \
-  -eltorito-alt-boot \
-  -e images/efiboot.img \
-  -no-emul-boot \
-  -V "RPM9-KS1-$today" \
-  -A "RPM9-KS1-$today" \
-  -joliet-long \
-  $ISO_EXTRACT_DIR
+xorriso -as mkisofs \
+-V 'RPM9-KS1' \
+-isohybrid-mbr --interval:local_fs:0s-15s:zero_mbrpt,zero_gpt:"$ORIG_ISO" \
+-partition_cyl_align off \
+-partition_offset 0 \
+--mbr-force-bootable \
+--gpt-iso-not-ro \
+-iso_mbr_part_type 0x00 \
+-c '/isolinux/boot.cat' \
+-b '/isolinux/isolinux.bin' \
+-no-emul-boot \
+-boot-load-size 4 \
+-boot-info-table \
+-eltorito-alt-boot \
+-e '/images/efiboot.img' \
+-no-emul-boot \
+-boot-load-size 14428 \
+-isohybrid-gpt-basdat \
+-o $NEW_ISO \
+$ISO_EXTRACT_DIR
 
 # Постобработка
-isohybrid --uefi $NEW_ISO
-implantisomd5 $NEW_ISO
+#isohybrid --uefi $NEW_ISO
+#implantisomd5 $NEW_ISO
 
 # Очистка временных файлов
 rm -rf $WORK_DIR
