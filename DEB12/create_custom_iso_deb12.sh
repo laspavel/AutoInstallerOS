@@ -41,25 +41,29 @@ cp -f "grub.cfg" $GRUB_CFG
 find $ISO_EXTRACT_DIR -name TRANS.TBL -exec rm -f '{}' \;
 
 # Создание нового ISO-образа с опцией -joliet-long
-mkisofs \
-  -o $NEW_ISO \
-  -b isolinux/isolinux.bin \
-  -J -R -l -v -T \
-  -c isolinux/boot.cat \
-  -no-emul-boot \
-  -boot-load-size 4 \
-  -boot-info-table \
-  -eltorito-alt-boot \
-  -e boot/grub/efi.img \
-  -no-emul-boot \
-  -V "DEB12-PR1-$today" \
-  -A "DEB12-PR1-$today" \
-  -joliet-long \
-  $ISO_EXTRACT_DIR
-
-# Постобработка
-isohybrid --uefi $NEW_ISO
-implantisomd5 $NEW_ISO
+xorriso -as mkisofs \
+-V 'DEB12-PR1' \
+-isohybrid-mbr --interval:local_fs:0s-15s:zero_mbrpt,zero_gpt,zero_apm:$ORIG_ISO \
+-partition_cyl_align on \
+-partition_offset 0 \
+-partition_hd_cyl 238 \
+-partition_sec_hd 32 \
+--mbr-force-bootable \
+-apm-block-size 2048 \
+-iso_mbr_part_type 0x00 \
+-c '/isolinux/boot.cat' \
+-b '/isolinux/isolinux.bin' \
+-no-emul-boot \
+-boot-load-size 4 \
+-boot-info-table \
+-eltorito-alt-boot \
+-e '/boot/grub/efi.img' \
+-no-emul-boot \
+-boot-load-size 19040 \
+-isohybrid-gpt-basdat \
+-isohybrid-apm-hfsplus \
+-o $NEW_ISO \
+$ISO_EXTRACT_DIR
 
 # Очистка временных файлов
 rm -rf $WORK_DIR

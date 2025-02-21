@@ -62,10 +62,6 @@ xorriso -as mkisofs \
 -o $NEW_ISO \
 $ISO_EXTRACT_DIR
 
-# Постобработка
-#isohybrid --uefi $NEW_ISO
-#implantisomd5 $NEW_ISO
-
 # Очистка временных файлов
 rm -rf $WORK_DIR
 

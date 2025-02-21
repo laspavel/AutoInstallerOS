@@ -5,7 +5,24 @@ autoinstall:
     hostname: ubuntu-server
     username: admin
     # crypt password (mkpasswd -m sha512crypt or openssl passwd -6 sun_password)
-    password: "$6$CedBC5FogKlSBKRZ$QIk11vkJCsFVUDgCtV58CvaUI9ScIJT4Bfgs4f2hXxsYKV4t5j37bz/kDeXbPY4MZmkGCMWKC9V/Heqhzl3gU0"
+    password: "$6$4XpkmHOIpYd.NeQO$gYvu27nczI.DN9CDwWebBpNqQNcKS7yVPT7AzMnOdjWGpcaPVB8u8VtPWYWll8AqCpdmdYY6gRIZkQ9uGo2T50"
+  user-data:
+    disable_root: false
+    package_upgrade: false
+    users:
+      - name: admin
+        primary_group: admin
+        groups: sudo
+        lock_passwd: false
+        shell: /bin/bash
+#        ssh_authorized_keys:
+#          - "ssh-ed25519 AAAAC... fpAv Key@example" 
+        sudo: ALL=(ALL) NOPASSWD:ALL
+    chpasswd:
+      list: |
+        root:1111
+        admin:1111
+      expire: false
   storage:
     swap:
       size: 0
@@ -40,19 +57,42 @@ autoinstall:
       type: mount
       path: /boot/efi
       device: efi-format
-    # Root Partition
-    - id: root-part
+    # LVM Setup
+    - id: pv0
       type: partition
       size: -1
       device: disk0
+    - id: vg1
+      type: lvm_volgroup
+      preserve: false
+      name: vg1
+      devices: [pv0]
+    - id: lv-root
+      type: lvm_partition
+      name: lv_root
+      volgroup: vg1
+      size: -1
     - id: root-format
       type: format
       fstype: ext4
-      volume: root-part
+      volume: lv-root
     - id: root-mount
       type: mount
       path: /
-      device: root-format
+      device: root-format      
+    # # Root Partition (Standart)
+    # - id: root-part
+    #   type: partition
+    #   size: -1
+    #   device: disk0
+    # - id: root-format
+    #   type: format
+    #   fstype: ext4
+    #   volume: root-part
+    # - id: root-mount
+    #   type: mount
+    #   path: /
+    #   device: root-format
   packages:
     - openssh-server
     - mc
@@ -65,9 +105,10 @@ autoinstall:
     - ncdu
   ssh:
     install-server: true
+    allow-pw: yes
   late-commands:
   - curtin in-target -- /usr/bin/sed -i '/^#PermitRootLogin/ s/^#//; /PermitRootLogin/! s/^$/PermitRootLogin yes/' /etc/ssh/sshd_config
-  - curtin in-target -- /bin/bash -c "echo -e '123123Q\n123123Q' | passwd root"
+  - curtin in-target -- /usr/bin/sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config
   - curtin in-target -- /usr/bin/systemctl enable ssh
   locale: en_US.UTF-8
   timezone: "Europe/Kyiv"
