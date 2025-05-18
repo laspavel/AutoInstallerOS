@@ -46,7 +46,7 @@ xorriso -as mkisofs \
 -isohybrid-mbr --interval:local_fs:0s-15s:zero_mbrpt,zero_gpt,zero_apm:$ORIG_ISO \
 -partition_cyl_align on \
 -partition_offset 0 \
--partition_hd_cyl 238 \
+-partition_hd_cyl 239 \
 -partition_sec_hd 32 \
 --mbr-force-bootable \
 -apm-block-size 2048 \

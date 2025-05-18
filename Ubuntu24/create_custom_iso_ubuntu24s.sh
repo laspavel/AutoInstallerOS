@@ -44,13 +44,13 @@ cp -f grub.cfg $ISO_EXTRACT_DIR/boot/grub/
 #
 
 xorriso -as mkisofs \
--V 'U24S-SI1-$today' \
+-V 'U24S-SI1' \
 --grub2-mbr --interval:local_fs:0s-15s:zero_mbrpt,zero_gpt:$ORIG_ISO \
 --protective-msdos-label \
 -partition_cyl_align off \
 -partition_offset 16 \
 --mbr-force-bootable \
--append_partition 2 28732ac11ff8d211ba4b00a0c93ec93b --interval:local_fs:5406916d-5417059d::$ORIG_ISO \
+-append_partition 2 28732ac11ff8d211ba4b00a0c93ec93b --interval:local_fs:6264708d-6274851d::$ORIG_ISO \
 -appended_part_as_gpt \
 -iso_mbr_part_type a2a0d0ebe5b9334487c068b6b72699c7 \
 -c '/boot.catalog' \
@@ -60,7 +60,7 @@ xorriso -as mkisofs \
 -boot-info-table \
 --grub2-boot-info \
 -eltorito-alt-boot \
--e '--interval:appended_partition_2_start_1351729s_size_10144d:all::' \
+-e '--interval:appended_partition_2_start_1566177s_size_10144d:all::' \
 -no-emul-boot \
 -boot-load-size 10144 \
 -o $NEW_ISO \
