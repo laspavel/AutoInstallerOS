@@ -47,7 +47,7 @@ xorriso -as mkisofs \
 --protective-msdos-label \
 -partition_cyl_align off \
 -partition_offset 16 \
--append_partition 2 28732ac11ff8d211ba4b00a0c93ec93b --interval:local_fs:3423312d-3440295d::"$ORIG_ISO" \
+-append_partition 2 28732ac11ff8d211ba4b00a0c93ec93b --interval:local_fs:16673748d-16690915d::"$ORIG_ISO" \
 -appended_part_as_gpt \
 -iso_mbr_part_type a2a0d0ebe5b9334487c068b6b72699c7 \
 --boot-catalog-hide \
@@ -57,10 +57,10 @@ xorriso -as mkisofs \
 -boot-info-table \
 --grub2-boot-info \
 -eltorito-alt-boot \
--e '--interval:appended_partition_2_start_855828s_size_16984d:all::' \
+-e '--interval:appended_partition_2_start_4168437s_size_17168d:all::' \
 -no-emul-boot \
--boot-load-size 16984 \
--o $NEW_ISO \
+-boot-load-size 17168 \
+-o "$NEW_ISO" \
 $ISO_EXTRACT_DIR
 
 # Очистка временных файлов
